@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Account</title>
+</head>
+<body>
+    <div class="header">
+        <div class="row header-box">
+            <div class="col-6">
+                <div class="info-link hover-3">
+                    <a href="impressum.html">Info</a></div>
+            </div>
+            <div class="col-6 header-menu-bar">
+                <div class="header-menu hover-3">
+                    <a href="Programm.html"> The Last Try - Programm </a> 
+                </div>
+                <div class="header-menu hover-3">
+                    <a href="account.html"> Mein Account </a> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="account-main">
+        <div class="account-headline"><h2>Meine Daten</h2></div>
+        <div>
+            <div class="change">
+                <div class="change-header"><h5>Hier können sie Ihre Daten ändern.</h5></div>
+                <div class="registration-body">
+                    <div class="formular-change-box">
+                        <label for="changeusername" class="label">E-Mail (Benutzername)</label>
+                        <br>
+                        <input type="email" class="formular-input" id="changeusername" placeholder="Eine neue E-Mail als Ihren Benutzernamen eingeben">
+                    </div>
+                    <div class="formular-change-box">
+                        <label for="changetelefone" class="label">Telefonnummer</label>
+                        <br>
+                        <input type="tel" class="formular-input" id="changetelefone" placeholder="Ihre neue Telefonnummer eingeben">
+                    </div>
+                    <div class="formular-change-box">
+                        <label for="changepassword" class="label">Passwort</label>
+                        <br>
+                        <input type="password" class="formular-input" id="changepassword" placeholder="Ein neues sicheres Passwort eingeben">
+                    </div>
+                    <div class="formular-change-box">
+                        <label for="changepasswordagain" class="label">Passwort wiederholen</label>
+                        <br>
+                        <input type="password" class="formular-input" id="changepasswordagain" placeholder="Ihr neues sicheres Passwort wiederholen">
+                    </div>
+                    <div class="formular-change-box">
+                        <label for="passwordconfirm" class="label">Altes Passwort</label>
+                        <br>
+                        <input type="password" class="formular-input" id="passwordconfirm" placeholder="Ihr altes sicheres Passwort">
+                    </div>
+                    <div class="formular-input-box-button">
+                        <div class="button-space-change">
+                            <button type="submit" class="btn log-reg-button btn-dark"> 
+                                Daten ändern
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="account-headline"><h2>Meine Reservierungen</h2></div>
+        <div>
+            <div class="reservation-body">
+                <div class="change-header"><h5>Hier können sie Ihre Reservierungen ansehen und stornieren.</h5></div>
+                <div class="reservations">
+                    <div class="reservations-box">
+                        <div class="reservation">
+                            <span class="reservation-details">Deadpool | 12.05.2023 | 12:30 | Sitzplätze: 4 | 38.00 €</span>
+                            <button type="button" class="btn btn-light reservation-button" onclick="window.location.href = 'beleg.html'">Beleg</button>
+                            <button type="submit" class="btn btn-light reservation-button" onclick="window.location.href = 'Film5.html'">Zum Film</button>
+                            <button type="submit" class="btn btn-light reservation-button">stornieren</button>
+                        </div>
+                        <div class="reservation">
+                            <span class="reservation-details">Interstellar | 06.05.2023 | 09:30 | Sitzplätze: 5 | 42.00 €</span>
+                            <button type="button" class="btn btn-light reservation-button" onclick="window.location.href = 'beleg.html'">Beleg</button>
+                            <button type="submit" class="btn btn-light reservation-button" onclick="window.location.href = 'Film2.html'">Zum Film</button>
+                            <button type="submit" class="btn btn-light reservation-button">stornieren</button>
+                        </div>
+                        <div class="reservation">
+                            <span class="reservation-details">The Witch | 04.05.2023 | 17:30 | Sitzplätze: 2 | 16.00 €</span>
+                            <button type="button" class="btn btn-light reservation-button" onclick="window.location.href = 'beleg.html'">Beleg</button>
+                            <button type="submit" class="btn btn-light reservation-button" onclick="window.location.href = 'Film2.html'">Zum Film</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-box row">
+            <div class="col-2">
+                <h3><b>Kontakt</b></h3>
+                <p>Max Mustermann <br> Musterstraße 0 <br> 00000 Musterstadt</p>
+                <br>
+                <p>Telefon: +00 0000000000 <br> Fax: +00-000-000000 <br> E-Mail: maxmuster@muster.com</p>
+            </div>
+            <div class="col-2">
+                <h3><b>Sonstiges</b></h3>
+                <a href="Programm.html" class="imprint-link">Programm</a>
+                <div class="line"></div>
+                <a href="account.html" class="imprint-link">Account</a>
+                <div class="line"></div>
+                <a href="impressum.html" class="imprint-link">Impressum</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
