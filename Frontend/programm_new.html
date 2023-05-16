@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link 
+        rel="stylesheet" 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./stylesheets/main.css">
+    <title>Programm</title>
+</head>
+<body>
+    <div class="header">
+        <div class="row header-box">
+            <div class="col-6">
+                <div class="info-link hover-3">
+                    <a href="impressum.html">Info</a></div>
+            </div>
+            <div class="col-6 header-menu-bar">
+                <div class="header-menu hover-3">
+                    <a href="Programm.html"> The Last Try - Programm </a> 
+                </div>
+                <div class="header-menu hover-3">
+                    <a href="account.html"> Mein Account </a> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="programm-main" id="programm-root">
+        
+        
+    </div>
+    <div class="footer">
+        <div class="footer-box row">
+            <div class="col-2">
+                <h3><b>Kontakt</b></h3>
+                <p>Max Mustermann <br> Musterstraße 0 <br> 00000 Musterstadt</p>
+                <br>
+                <p>Telefon: +00 0000000000 <br> Fax: +00-000-000000 <br> E-Mail: maxmuster@muster.com</p>
+            </div>
+            <div class="col-2">
+                <h3><b>Sonstiges</b></h3>
+                <a href="http://192.168.178.85:3000/" class="imprint-link">Programm</a>
+                <div class="line"></div>
+                <a href="account.html" class="imprint-link">Account</a>
+                <div class="line"></div>
+                <a href="impressum.html" class="imprint-link">Impressum</a>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        function movieBox (obj) {
+
+            // <div class="row movie-box">
+            let programm = document.createElement('div');
+            programm.id = 'programm-box-' + obj.id;
+            programm.className = 'row movie-box';
+
+            // <div class="col-4 movie-picture">
+            let programm_picture = document.createElement('div');
+            programm_picture.id = 'programm-box-picture-' + obj.id;
+            programm_picture.className = 'col-4 movie-picture';
+            programm_picture.innerHTML = '<img src="./images/'+ obj.coverpfad +'" alt="' + obj.bezeichnung + '">';
+
+            // <div class="col-8 movie-info">
+            let programm_info = document.createElement('div');
+            programm_info.id = 'programm-box-info-' + obj.id;
+            programm_info.className = 'col-8 movie-info';
+
+            // h2
+            let programm_info_title = document.createElement('h2');
+            programm_info_title.id = 'programm-box-info-title-' + obj.id;
+            programm_info_title.innerHTML = obj.bezeichnung;
+
+            // p1
+            let programm_info_p1 = document.createElement('p');
+            programm_info_p1.id = 'programm-box-info-p1-' + obj.id;
+            programm_info_p1.innerHTML = '<b>Genre:</b> ' + obj.genre.bezeichnung + ' - FSK ' + obj.fsk + '';
+
+            // p2
+            let programm_info_p2 = document.createElement('p');
+            programm_info_p2.id = 'programm-box-info-p2-' + obj.id;
+            programm_info_p2.innerHTML = obj.beschreibung;
+
+            // p3
+            let programm_info_p3 = document.createElement('p');
+            programm_info_p3.id = 'programm-box-info-p3-' + obj.id;
+            programm_info_p3.innerHTML = '<b>Dauer:</b> ' + obj.dauer + ' Minuten';
+
+            // Button
+            let programm_info_button = document.createElement('button');
+            programm_info_button.id = 'programm-box-info-button- + obj.id';
+            programm_info_button.className = 'btn Movie-detail-button btn-outline-dark'
+            programm_info_button.innerHTML = 'Details';
+            programm_info_button.onclick = function () {
+                window.location.href = 'http://192.168.178.85:3000/filme/details'
+            };
+
+            let root = document.querySelector('#programm-root');
+            root.appendChild(programm);
+
+            let root_programm = document.querySelector('#programm-box-' + obj.id);
+            root_programm.appendChild(programm_picture);
+            root_programm.appendChild(programm_info);
+
+            let root_info = document.querySelector('#programm-box-info-' + obj.id);
+            root_info.appendChild(programm_info_title);
+            root_info.appendChild(programm_info_p1);
+            root_info.appendChild(programm_info_p2);
+            root_info.appendChild(programm_info_p3);
+            root_info.appendChild(programm_info_button);
+        }
+
+        let movie_obj = {
+            title: 'The Witch',
+            pictureName: 'thewitch.jpg',
+            pictureAlt: 'The Witch',
+            genre: 'Horror/Drama',
+            fsk: '16',
+            info: 'Handlung Text hier einfügen. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit ame',
+            duration: '92'
+        };
+
+        function getFilme() {
+ 
+            // Creating Our XMLHttpRequest object
+            let xhr = new XMLHttpRequest();
+
+            // Making our connection 
+            var url = 'http://192.168.178.85:8000/api/film/alle';
+            xhr.open("GET", url, true);
+
+            // function execute after request is successful
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    //console.log(JSON.parse(this.responseText));
+                    for (film of JSON.parse(this.responseText)) {
+                        movieBox(film);
+                    }  
+                }
+            }
+            // Sending our request
+            xhr.send();
+        }
+
+        function getGenre(id, movie_obj) {
+ 
+            // Creating Our XMLHttpRequest object
+            let xhr = new XMLHttpRequest();
+
+            // Making our connection 
+            var url = 'http://192.168.178.85:8000/api/filmgenre/gib/' + id;
+            xhr.open("GET", url, true);
+
+            // function execute after request is successful
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                    movieBox(movie_obj);
+                }
+            }
+            // Sending our request
+            xhr.send();
+        }
+        getFilme();
+
+    </script>
+</body>
+</html>
