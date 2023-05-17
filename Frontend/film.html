@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./stylesheets/main.css">
+    <title>Film - Details</title>
+</head>
+<body>
+    <div class="header">
+        <div class="row header-box">
+            <div class="col-6">
+                <div class="info-link hover-3">
+                    <a href="http://localhost:3000/impressum">Info</a></div>
+            </div>
+            <div class="col-6 header-menu-bar">
+                <div class="header-menu hover-3">
+                    <a href="http://localhost:3000"> The Last Try - Programm </a> 
+                </div>
+                <div class="header-menu hover-3">
+                    <a href="http://localhost:3000/account"> Mein Account </a> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="detail-main">
+        <div class="detail-box">
+            <video src="" autoplay loop muted class="movie-trailer" id="trailer">
+                
+            </video>
+            <div class="detail-box-inner row">
+                <div class="col-4 movie-detail-picture" id="film-detailpage-pic">
+                </div>
+                <div class="col-8 movie-detail-info">
+                    <div class="movie-detail-headline">
+                        <div>
+                            <h1 id="film-detailpage-title"></h1>
+                        </div>
+                    </div>
+                    <div class="movie-detail-text" id="film-detailpage-info-text">
+                    </div>
+                </div>
+                <div class="col-12 under-info">
+                    <div class="row">
+                        <div class="col-3 border-right" id="film-detailpage-info-genre"></div>
+                        <div class="col-3 border-right" id="film-detailpage-info-fsk"></div>
+                        <div class="col-3 border-right" id="film-detailpage-info-duration"></div>
+                        <div class="col-3" id="film-detailpage-info-price"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty"></div>
+            <div id="root-vorstellungen">
+                <div class="movie-show">
+                    <div class="movie-date">Fr 12.05.2023 Kinosaal A</div>
+                    <div class="date-line"></div>
+                    <div class="movie-times row">
+                        <button type="button" class="btn btn-outline-light" onclick="window.location.href = 'sitzplatzreservierungklein.html'">10:30</button>
+                        <button type="button" class="btn btn-outline-light" onclick="window.location.href = 'sitzplatzreservierungklein.html'">13:30</button>
+                        <button type="button" class="btn btn-outline-light" onclick="window.location.href = 'sitzplatzreservierungklein.html'">16:30</button>
+                        <button type="button" class="btn btn-outline-light" onclick="window.location.href = 'sitzplatzreservierungklein.html'">19:30</button>
+                        <button type="button" class="btn btn-outline-light" onclick="window.location.href = 'sitzplatzreservierungklein.html'">22:30</button>
+                    </div>
+                </div>
+                <div class="movie-show">
+                    <div class="movie-date">Sa 13.05.2023 Kinosaal B</div>
+                    <div class="date-line"></div>
+                    <div class="movie-times row">
+                        <button type="button" class="btn btn-outline-light" onclick="window.location.href = 'sitzplatzreservierunggross.html'">09:30</button>
+                        <button type="button" class="btn btn-outline-light" onclick="window.location.href = 'sitzplatzreservierunggross.html'">14:30</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-box row">
+            <div class="col-2">
+                <h3><b>Kontakt</b></h3>
+                <p>Max Mustermann <br> Musterstraße 0 <br> 00000 Musterstadt</p>
+                <br>
+                <p>Telefon: +00 0000000000 <br> Fax: +00-000-000000 <br> E-Mail: maxmuster@muster.com</p>
+            </div>
+            <div class="col-2">
+                <h3><b>Sonstiges</b></h3>
+                <a href="http://localhost:3000" class="imprint-link">Programm</a>
+                <div class="line"></div>
+                <a href="http://localhost:3000/account" class="imprint-link">Account</a>
+                <div class="line"></div>
+                <a href="http://localhost:3000/impressum" class="imprint-link">Impressum</a>
+            </div>
+        </div>
+    </div>
+    <script src="./javascripts/film.js"></script>
+</body>
+</html>
