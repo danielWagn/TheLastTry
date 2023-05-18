@@ -34,11 +34,11 @@ app.get('/login', (req,res,) => {
 });
 
 app.get('/reservierung/klein', (req,res,) => {
-    res.sendFile(path.join(__dirname) + "/sitzplatz.html");
+    res.sendFile(path.join(__dirname) + "/sitzplatzreservierungklein.html");
 });
 
 app.get('/reservierung/gross', (req,res,) => {
-    res.sendFile(path.join(__dirname) + "/account.html");
+    res.sendFile(path.join(__dirname) + "/sitzplatzreservierunggross.html");
 });
 
 
