@@ -26,6 +26,36 @@
         </div>
     </div>
     <div class="movie-room-main">
+        <div class="movie-reservation-details row">
+            <div class="col-4 movie-reservation-picture">
+                <img src="./images/deadpool.jpeg" alt="Deadpool">
+            </div>
+            <div class="col-8 movie-reservation-info">
+                <table>
+                    <tr>
+                        <td>Film</td>
+                        <td>Deadpool</td>
+                    </tr>
+                    <tr>
+                        <td>Kinosaal</td>
+                        <td>A</td>
+                    </tr>
+                    <tr>
+                        <td>Datum</td>
+                        <td>10.05.2023</td>
+                    </tr>
+                    <tr>
+                        <td>Uhrzeit</td>
+                        <td>10:30</td>
+                    </tr>
+                    <tr>
+                        <td>Kartenpreis</td>
+                        <td>9,50 €</td>
+                    </tr>
+                </table>
+                <button type="submit" class="btn btn-light reservation-button" onclick="window.location.href = 'Film5.html'">Zum Film</button>
+            </div>
+        </div>
         <div class="movie-directions row">
             <div class="col-8">
                 <p class="directions">
@@ -175,8 +205,8 @@
                 <div class="reservation-cost" id="preis">
                 </div>
             </div>
-            <div class="seat-button">
-                <button type="submit" class="btn btn-light" onclick="window.location.href = 'kasse.html'">
+            <div class="seat-button" id="kasse-link-button-gross">
+                <button type="submit" class="btn btn-light">
                     Zur Kasse
                 </button>
             </div>
@@ -201,6 +231,14 @@
         </div>
     </div>
     <script>
+
+        
+        let btn = document.querySelector("#kasse-link-button-gross");
+        btn. onclick = function () {
+                window.location.href = 'http://localhost:3000/kasse';
+            };
+        
+
         var geld = 0;
         const neueliste = [];
 
@@ -212,13 +250,17 @@
                 neueliste.pop(seat.id);
                 seat.style.background = "white";
                 el.innerHTML=neueliste;
-                geldel.innerHTML = "Preis: " + neueliste.length * 10.50 + "€";
+                let us_preis = parseFloat(neueliste.length * 10.50).toFixed(2)  + ' €';
+                let eu_preis = us_preis.replaceAll('.',',');
+                geldel.innerHTML = "Preis: " + eu_preis;
             }
             else{
                 neueliste.push(seat.id);
                 seat.style.background = "rgb(64, 214, 132)";
                 el.innerHTML=neueliste;
-                geldel.innerHTML = "Preis: " + neueliste.length * 10.50 + "€";
+                let us_preis = parseFloat(neueliste.length * 10.50).toFixed(2)  + ' €';
+                let eu_preis = us_preis.replaceAll('.',',');
+                geldel.innerHTML = "Preis: " + eu_preis;
             }
         }
     </script>++

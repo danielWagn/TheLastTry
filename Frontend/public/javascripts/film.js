@@ -22,7 +22,9 @@ function fillFilmInfo(film_obj) {
     filmInfoDuration.innerHTML = film_obj.dauer + ' Minuten';
 
     let filmInfoPrice = document.getElementById("film-detailpage-info-price");
-    filmInfoPrice.innerHTML = film_obj.preis + ' €';
+    let preis = parseFloat(film_obj.preis).toFixed(2)  + ' €';
+    decimal = preis.replaceAll('.',',');
+    filmInfoPrice.innerHTML = decimal; 
 }
 
 function vorstellungsBox (obj) {

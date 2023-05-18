@@ -46,11 +46,11 @@
                     <div>A</div>
                     <div>4</div>
                     <div>C4, C5, C6, C7</div>
-                    <div>38.00 €</div>
+                    <div>38,00 €</div>
                 </div>
             </div>
             <div class="reservation-submit">
-                <button type="submit" class="btn btn-dark" onclick="window.location.href = 'beleg.html'">Jetzt reservieren</button>
+                <button type="submit" class="btn btn-dark" id="kasse-link-button">Jetzt reservieren</button>
             </div>
     </div>
     <div class="footer">
@@ -71,5 +71,11 @@
             </div>
         </div>
     </div>
+    <script>
+        let btn = document.querySelector("#kasse-link-button");
+        btn. onclick = function () {
+                window.location.href = 'http://localhost:3000/beleg';
+            };
+    </script>
 </body>
 </html>
