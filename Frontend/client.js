@@ -33,11 +33,11 @@ app.get('/login', (req,res,) => {
     res.sendFile(path.join(__dirname) + "/login.html");
 });
 
-app.get('/reservierung/klein', (req,res,) => {
+app.get('/reservierungklein', (req,res,) => {
     res.sendFile(path.join(__dirname) + "/sitzplatzreservierungklein.html");
 });
 
-app.get('/reservierung/gross', (req,res,) => {
+app.get('/reservierunggross', (req,res,) => {
     res.sendFile(path.join(__dirname) + "/sitzplatzreservierunggross.html");
 });
 

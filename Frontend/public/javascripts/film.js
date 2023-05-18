@@ -26,26 +26,50 @@ function fillFilmInfo(film_obj) {
 }
 
 function vorstellungsBox (obj) {
+
+    const anhang = obj.date.replaceAll('.','');
     
     let vorstellung = document.createElement('div');
-    vorstellung.id = 'vorstellung-detail-box-' + obj.date;
-    vorstellung.className = 'movie-show';
-
-    let vorstellung_date = document.createElement('div');
-    vorstellung_date.id = 'vorstellung-detail-box-date';
-    vorstellung_date.className = 'movie-date';
-    vorstellung_date.innerHTML = obj.date;
-
-    let vorstellung_date_line = document.createElement('div');
-    vorstellung_date_line.id = 'vorstellung-detail-box-date-line';
-    vorstellung_date.className = 'date-line';
-
-    let vorstellung_items = document.createElement('div');
-    vorstellung_items.id = 'vorstellung-detail-box-items' + obj.date;
-    vorstellung_items.className = 'movie-times row';
+    vorstellung.id = 'vorstellung-detail-box-' + anhang;
+    vorstellung.className = "movie-show";
 
     let root = document.querySelector('#root-vorstellungen');
     root.appendChild(vorstellung);
+
+    let vorstellung_date = document.createElement('div');
+    vorstellung_date.className = "movie-date";
+    vorstellung_date.innerHTML = obj.date;
+
+    let vorstellung_date_line = document.createElement('div');
+    vorstellung_date_line.className = "date-line";
+
+    let vorstellung_items = document.createElement('div');
+    vorstellung_items.id = 'vorstellung-detail-box-items' + anhang;
+    vorstellung_items.className = "movie-times row";
+
+    let root_vorstellung = document.querySelector('#vorstellung-detail-box-' + anhang);
+    root_vorstellung.appendChild(vorstellung_date);
+    root_vorstellung.appendChild(vorstellung_date_line);
+    root_vorstellung.appendChild(vorstellung_items);
+
+    for (time of obj.data) {
+        let vorstellung_date_time = document.createElement('button');
+        vorstellung_date_time.className = "btn btn-outline-light";
+        vorstellung_date_time.innerHTML = time.zeitpunkt.substring(11,16);
+        if (time.kinosaal.bezeichnung == "Grosser Saal") {
+            vorstellung_date_time.onclick = function () {
+                window.location.href = 'http://localhost:3000/reservierunggross';
+            };
+        } else {
+            vorstellung_date_time.onclick = function () {
+                window.location.href = 'http://localhost:3000/reservierungklein';
+            };
+        }
+
+        let root_vorstellung_items = document.querySelector('#vorstellung-detail-box-items' + anhang);
+        root_vorstellung_items.appendChild(vorstellung_date_time);
+    }
+
 }
 
 function getURLParameter()
@@ -55,6 +79,41 @@ function getURLParameter()
     const id = urlParams.get('id')
 
     return id
+}
+
+function prepareVorstellungen(obj) {
+
+    let vorstellung_liste = [];
+
+    if (!(obj.length === 0)){
+
+        let time_list = [];
+
+        obj.sort(function (a, b) {
+            return a.zeitpunkt.localeCompare(b.zeitpunkt);
+        });
+
+        for (time of obj) {
+            const time_eintrag = time.zeitpunkt.substring(0,10);
+            if (!time_list.includes(time_eintrag)){
+                time_list.push(time_eintrag);
+            }
+        }
+
+        for (datum of time_list) {
+            vorstellung_liste.push({date: datum, data: []});
+        }
+
+        for (vorstellung_eintrag of vorstellung_liste) {
+            for (obj_eintrag of obj) {
+                if (vorstellung_eintrag.date == obj_eintrag.zeitpunkt.substring(0,10)) {
+                    vorstellung_eintrag.data.push(obj_eintrag);
+                }
+            }
+        }
+    }
+
+    return vorstellung_liste;
 }
 
 function getVorstellungen(filmId) {
@@ -69,8 +128,12 @@ function getVorstellungen(filmId) {
     // function execute after request is successful
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            let vorstellung_obj = JSON.parse(this.responseText);
-            console.log(vorstellung_obj);
+            const vorstellung_obj = JSON.parse(this.responseText);
+            let prep_Vorstellungen = prepareVorstellungen(vorstellung_obj);
+            for (Veranstaltungstag of prep_Vorstellungen) {
+                console.log(Veranstaltungstag);
+                vorstellungsBox(Veranstaltungstag);
+            }
         }
     }
     // Sending our request
