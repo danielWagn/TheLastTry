@@ -28,32 +28,32 @@
     <div class="movie-room-main">
         <div class="movie-reservation-details row">
             <div class="col-4 movie-reservation-picture">
-                <img src="./images/deadpool.jpeg" alt="Deadpool">
+                <img src="" alt="" id="reservation-film-info-picture">
             </div>
             <div class="col-8 movie-reservation-info">
                 <table>
                     <tr>
                         <td>Film</td>
-                        <td>Deadpool</td>
+                        <td id="reservation-film-info-title"></td>
                     </tr>
                     <tr>
                         <td>Kinosaal</td>
-                        <td>A</td>
+                        <td id="reservation-film-info-room"></td>
                     </tr>
                     <tr>
                         <td>Datum</td>
-                        <td>10.05.2023</td>
+                        <td id="reservation-film-info-date"></td>
                     </tr>
                     <tr>
                         <td>Uhrzeit</td>
-                        <td>10:30</td>
+                        <td id="reservation-film-info-time"></td>
                     </tr>
                     <tr>
                         <td>Kartenpreis</td>
-                        <td>9,50 €</td>
+                        <td id="reservation-film-info-price"></td>
                     </tr>
                 </table>
-                <button type="submit" class="btn btn-light reservation-button" onclick="window.location.href = 'Film5.html'">Zum Film</button>
+                <button type="submit" class="btn btn-light reservation-button" onclick="window.location.href = ''" id="reservation-film-info-button">Zum Film</button>
             </div>
         </div>
         <div class="movie-directions row">
@@ -206,7 +206,7 @@
                 </div>
             </div>
             <div class="seat-button">
-                <button type="submit" class="btn btn-light" id="kasse-link-button-klein">
+                <button type="submit" class="btn btn-light" id="kasse-link-button-reservierung">
                     Zur Kasse
                 </button>
             </div>
@@ -230,37 +230,6 @@
             </div>
         </div>
     </div>
-    <script>
-
-        let btn = document.querySelector("#kasse-link-button-klein");
-        btn. onclick = function () {
-                window.location.href = 'http://localhost:3000/kasse';
-            };
-
-        var geld = 0;
-        const neueliste = [];
-
-        let el = document.getElementById("ausgesucht");
-        let geldel = document.getElementById("preis");
-        
-        function reserve(seat) {
-            if(neueliste.includes(seat.id)){
-                neueliste.pop(seat.id);
-                seat.style.background = "white";
-                el.innerHTML=neueliste;
-                let us_preis = parseFloat(neueliste.length * 10.50).toFixed(2)  + ' €';
-                let eu_preis = us_preis.replaceAll('.',',');
-                geldel.innerHTML = "Preis: " + eu_preis;
-            }
-            else{
-                neueliste.push(seat.id);
-                seat.style.background = "rgb(64, 214, 132)";
-                el.innerHTML=neueliste;
-                let us_preis = parseFloat(neueliste.length * 10.50).toFixed(2)  + ' €';
-                let eu_preis = us_preis.replaceAll('.',',');
-                geldel.innerHTML = "Preis: " + eu_preis;
-            }
-        }
-    </script>
+    <script src="./javascripts/sitzplatzreservierung.js"></script>
 </body>
 </html>

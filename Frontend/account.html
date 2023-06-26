@@ -29,38 +29,52 @@
         <div class="account-headline"><h2>Meine Daten</h2></div>
         <div>
             <div class="change">
-                <div class="change-header"><h5>Hier können sie Ihre Daten ändern.</h5></div>
-                <div class="registration-body">
-                    <div class="formular-change-box">
-                        <label for="changeusername" class="label">E-Mail (Benutzername)</label>
-                        <br>
-                        <input type="email" class="formular-input" id="changeusername" placeholder="Eine neue E-Mail als Ihren Benutzernamen eingeben">
+                <div class="change-header"><h5>Hier können sie Ihre Daten einsehen und ändern.</h5></div>
+                <div class="row">
+                    <div class="user-data col-6">
+                        <table class="centered-user-data">
+                            <tr>
+                                <td>Benutzername: </td>
+                                <td>max@muster.de</td>
+                            </tr>
+                            <tr>
+                                <td>Telefonnummer: </td>
+                                <td>0172 0000000</td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="formular-change-box">
-                        <label for="changetelefone" class="label">Telefonnummer</label>
-                        <br>
-                        <input type="tel" class="formular-input" id="changetelefone" placeholder="Ihre neue Telefonnummer eingeben">
-                    </div>
-                    <div class="formular-change-box">
-                        <label for="changepassword" class="label">Passwort</label>
-                        <br>
-                        <input type="password" class="formular-input" id="changepassword" placeholder="Ein neues sicheres Passwort eingeben">
-                    </div>
-                    <div class="formular-change-box">
-                        <label for="changepasswordagain" class="label">Passwort wiederholen</label>
-                        <br>
-                        <input type="password" class="formular-input" id="changepasswordagain" placeholder="Ihr neues sicheres Passwort wiederholen">
-                    </div>
-                    <div class="formular-change-box">
-                        <label for="passwordconfirm" class="label">Altes Passwort</label>
-                        <br>
-                        <input type="password" class="formular-input" id="passwordconfirm" placeholder="Ihr altes sicheres Passwort">
-                    </div>
-                    <div class="formular-input-box-button">
-                        <div class="button-space-change">
-                            <button type="submit" class="btn log-reg-button btn-dark"> 
-                                Daten ändern
-                            </button>
+                    <div class="registration-body col-6">
+                        <div class="formular-change-box">
+                            <label for="changeusername" class="label">E-Mail (Benutzername)</label>
+                            <br>
+                            <input type="email" class="formular-input" id="changeusername" placeholder="Eine neue E-Mail als Ihren Benutzernamen eingeben">
+                        </div>
+                        <div class="formular-change-box">
+                            <label for="changetelefone" class="label">Telefonnummer</label>
+                            <br>
+                            <input type="tel" class="formular-input" id="changetelefone" placeholder="Ihre neue Telefonnummer eingeben">
+                        </div>
+                        <div class="formular-change-box">
+                            <label for="changepassword" class="label">Passwort</label>
+                            <br>
+                            <input type="password" class="formular-input" id="changepassword" placeholder="Ein neues sicheres Passwort eingeben">
+                        </div>
+                        <div class="formular-change-box">
+                            <label for="changepasswordagain" class="label">Passwort wiederholen</label>
+                            <br>
+                            <input type="password" class="formular-input" id="changepasswordagain" placeholder="Ihr neues sicheres Passwort wiederholen">
+                        </div>
+                        <div class="formular-change-box">
+                            <label for="passwordconfirm" class="label">Altes Passwort</label>
+                            <br>
+                            <input type="password" class="formular-input" id="passwordconfirm" placeholder="Ihr altes sicheres Passwort">
+                        </div>
+                        <div class="formular-input-box-button">
+                            <div class="button-space-change">
+                                <button type="submit" class="btn log-reg-button btn-dark"> 
+                                    Daten ändern
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

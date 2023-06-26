@@ -60,11 +60,6 @@ serviceRouter.post('/person', function(request, response) {
         errorMsgs.push('vorname fehlt');
     if (helper.isUndefined(request.body.nachname)) 
         errorMsgs.push('nachname fehlt');
-    if (helper.isUndefined(request.body.adresse)) {
-        errorMsgs.push('adresse fehlt');
-    } else if (helper.isUndefined(request.body.adresse.id)) {
-        errorMsgs.push('adresse gesetzt, aber id fehlt');
-    }
     if (helper.isUndefined(request.body.telefonnummer)) 
         request.body.telefonnummer = '';
     if (helper.isUndefined(request.body.email)) 
@@ -87,7 +82,7 @@ serviceRouter.post('/person', function(request, response) {
 
     const personDao = new PersonDao(request.app.locals.dbConnection);
     try {
-        var obj = personDao.create(request.body.anrede, request.body.vorname, request.body.nachname, request.body.adresse.id, request.body.telefonnummer, request.body.email, request.body.geburtstag);
+        var obj = personDao.create(request.body.anrede, request.body.vorname, request.body.nachname, request.body.telefonnummer, request.body.email, request.body.geburtstag);
         console.log('Service Person: Record inserted');
         response.status(200).json(obj);
     } catch (ex) {
@@ -111,11 +106,6 @@ serviceRouter.put('/person', function(request, response) {
         errorMsgs.push('vorname fehlt');
     if (helper.isUndefined(request.body.nachname)) 
         errorMsgs.push('nachname fehlt');
-    if (helper.isUndefined(request.body.adresse)) {
-        errorMsgs.push('adresse fehlt');
-    } else if (helper.isUndefined(request.body.adresse.id)) {
-        errorMsgs.push('adresse gesetzt, aber id fehlt');
-    }
     if (helper.isUndefined(request.body.telefonnummer)) 
         request.body.telefonnummer = '';
     if (helper.isUndefined(request.body.email)) 
@@ -138,7 +128,7 @@ serviceRouter.put('/person', function(request, response) {
 
     const personDao = new PersonDao(request.app.locals.dbConnection);
     try {
-        var obj = personDao.update(request.body.id, request.body.anrede, request.body.vorname, request.body.nachname, request.body.adresse.id, request.body.telefonnummer, request.body.email, request.body.geburtstag);
+        var obj = personDao.update(request.body.id, request.body.anrede, request.body.vorname, request.body.nachname, request.body.telefonnummer, request.body.email, request.body.geburtstag);
         console.log('Service Person: Record updated, id=' + request.body.id);
         response.status(200).json(obj);
     } catch (ex) {

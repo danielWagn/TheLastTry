@@ -1,5 +1,4 @@
 const helper = require('../helper.js');
-const AdresseDao = require('./adresseDao.js');
 
 class PersonDao {
 
@@ -12,7 +11,6 @@ class PersonDao {
     }
 
     loadById(id) {
-        const adresseDao = new AdresseDao(this._conn);
 
         var sql = 'SELECT * FROM Person WHERE id=?';
         var statement = this._conn.prepare(sql);
@@ -28,14 +26,10 @@ class PersonDao {
 
         result.geburtstag = helper.formatToGermanDate(helper.parseSQLDateTimeString(result.geburtstag));
 
-        result.adresse = adresseDao.loadById(result.adresseId);
-        delete result.adresseId;
-
         return result;
     }
 
     loadAll() {
-        const adresseDao = new AdresseDao(this._conn);
 
         var sql = 'SELECT * FROM Person';
         var statement = this._conn.prepare(sql);
@@ -52,8 +46,6 @@ class PersonDao {
 
             result[i].geburtstag = helper.formatToGermanDate(helper.parseSQLDateTimeString(result[i].geburtstag));
             
-            result[i].adresse = adresseDao.loadById(result[i].adresseId);
-            delete result[i].adresseId;
         }
 
         return result;
@@ -70,10 +62,10 @@ class PersonDao {
         return false;
     }
 
-    create(anrede = 'Herr', vorname = '', nachname = '', adresseId = 1, telefonnummer = '', email = '', geburtstag = null) {
-        var sql = 'INSERT INTO Person (anrede,vorname,nachname,adresseId,telefonnummer,email,geburtstag) VALUES (?,?,?,?,?,?,?)';
+    create(anrede = 'Herr', vorname = '', nachname = '', telefonnummer = '', email = '', geburtstag = null) {
+        var sql = 'INSERT INTO Person (anrede,vorname,nachname,telefonnummer,email,geburtstag) VALUES (?,?,?,?,?,?)';
         var statement = this._conn.prepare(sql);
-        var params = [(helper.strStartsWith(anrede, 'He') ? 0 : 1), vorname, nachname, adresseId, telefonnummer, email, (helper.isNull(geburtstag) ? null : helper.formatToSQLDate(geburtstag))];
+        var params = [(helper.strStartsWith(anrede, 'He') ? 0 : 1), vorname, nachname, telefonnummer, email, (helper.isNull(geburtstag) ? null : helper.formatToSQLDate(geburtstag))];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -82,10 +74,10 @@ class PersonDao {
         return this.loadById(result.lastInsertRowid);
     }
 
-    update(id, anrede = 'Herr', vorname = '', nachname = '', adresseId = 1, telefonnummer = '', email = '', geburtstag = null) {
-        var sql = 'UPDATE Person SET anrede=?,vorname=?,nachname=?,adresseId=?,telefonnummer=?,email=?,geburtstag=? WHERE id=?';
+    update(id, anrede = 'Herr', vorname = '', nachname = '', telefonnummer = '', email = '', geburtstag = null) {
+        var sql = 'UPDATE Person SET anrede=?,vorname=?,nachname=?,telefonnummer=?,email=?,geburtstag=? WHERE id=?';
         var statement = this._conn.prepare(sql);
-        var params = [(helper.strStartsWith(anrede, 'He') ? 0 : 1), vorname, nachname, adresseId, telefonnummer, email, (helper.isNull(geburtstag) ? null : helper.formatToSQLDate(geburtstag)), id];
+        var params = [(helper.strStartsWith(anrede, 'He') ? 0 : 1), vorname, nachname, telefonnummer, email, (helper.isNull(geburtstag) ? null : helper.formatToSQLDate(geburtstag)), id];
         var result = statement.run(params);
 
         if (result.changes != 1) 

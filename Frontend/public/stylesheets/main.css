@@ -451,6 +451,27 @@ body {
     background-color: #222429;
 }
 
+.user-data {
+    width: 100%;
+    background-color: #222429;
+    color: white;
+    font-size: 20px;
+}
+
+.centered-user-data {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+}
+
+.centered-user-data td{
+    width: 200px;
+}
+
+.centered-user-data tr{
+    height: 60px;
+}
+
 .revervation-body {
     padding: 0;
     height: 100px;
@@ -472,7 +493,7 @@ body {
 .reservation {
     margin-top: 1%;
     margin-bottom: 1%;
-    width: 40%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
     border: none;
@@ -490,6 +511,10 @@ body {
 
 .reservation-details {
     margin-right: 3%;
+}
+
+.formular-input {
+    width: 50%;
 }
 
 /*------------------------------------------------------------------------------------------------*/
@@ -795,6 +820,10 @@ body {
 
 .movie-reservation-info button {
     margin-top: 30px;
+}
+
+#reservation-film-info-picture {
+    width: 100%;
 }
 
 /*------------------------------------------------------------------------------------------------*/

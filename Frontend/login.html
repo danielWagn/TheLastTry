@@ -31,55 +31,59 @@
             <div class="login col-6">
                 <div class="login-header"><h5>Anmelden</h5></div>
                 <div class="login-body">
-                    <div class="formular-input-box">
-                        <label for="loginusername" class="label">Benutzername</label>
-                        <br>
-                        <input type="text" class="formular-input" id="loginusername" placeholder="Ihren Benutzernamen eingeben">
-                    </div>
-                    <div class="formular-input-box">
-                        <label for="loginpassword" class="label">Passwort</label>
-                        <br>
-                        <input type="password" class="formular-input" id="loginpassword" placeholder="Ihr sicheres Passwort eingeben">
-                    </div>
-                    <div class="formular-input-box-button">
-                        <div class="button-space">
-                            <button type="button" class="btn log-reg-button btn-dark"> 
-                                Anmelden
-                            </button>
+                    <form action="/logres" method="post">
+                        <div class="formular-input-box">
+                            <label for="loginusername" class="label">Benutzername</label>
+                            <br>
+                            <input type="text" class="formular-input" id="loginusername" placeholder="Ihren Benutzernamen eingeben" value="user" required>
                         </div>
-                    </div>
+                        <div class="formular-input-box">
+                            <label for="loginpassword" class="label">Passwort</label>
+                            <br>
+                            <input type="password" class="formular-input" id="loginpassword" placeholder="Ihr sicheres Passwort eingeben" required>
+                        </div>
+                        <div class="formular-input-box-button">
+                            <div class="button-space">
+                                <button type="submit" class="btn log-reg-button btn-dark" value="Login"> 
+                                    Anmelden
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="registration col-6">
                 <div class="registration-header"><h5>Registrieren</h5></div>
                 <div class="registration-body">
-                    <div class="formular-input-box">
-                        <label for="regisusername" class="label">E-Mail (Benutzername)</label>
-                        <br>
-                        <input type="email" class="formular-input" id="regisusername" placeholder="Eine E-Mail als Ihren Benutzernamen eingeben">
-                    </div>
-                    <div class="formular-input-box">
-                        <label for="registelefone" class="label">Telefonnummer</label>
-                        <br>
-                        <input type="tel" class="formular-input" id="regispasswordsafe" placeholder="Ihre Telefonnummer eingeben">
-                    </div>
-                    <div class="formular-input-box">
-                        <label for="regispassword" class="label">Passwort</label>
-                        <br>
-                        <input type="password" class="formular-input" id="regispassword" placeholder="Ein sicheres Passwort eingeben">
-                    </div>
-                    <div class="formular-input-box">
-                        <label for="regispasswordsafe" class="label">Passwort wiederholen</label>
-                        <br>
-                        <input type="password" class="formular-input" id="regispasswordsafe" placeholder="Ihr sicheres Passwort wiederholen">
-                    </div>
-                    <div class="formular-input-box-button">
-                        <div class="button-space">
-                            <button type="button" class="btn log-reg-button btn-dark"> 
-                                Registrieren
-                            </button>
+                    <form action="/logres" method="post">
+                        <div class="formular-input-box">
+                            <label for="regisusername" class="label">E-Mail (Benutzername)</label>
+                            <br>
+                            <input type="email" name="user" class="formular-input" id="regisusername" placeholder="Eine E-Mail als Ihren Benutzernamen eingeben" required>
                         </div>
-                    </div>
+                        <div class="formular-input-box">
+                            <label for="registelefone" class="label">Telefonnummer</label>
+                            <br>
+                            <input type="tel" name="handy" class="formular-input" id="regispasswordsafe" placeholder="Ihre Telefonnummer eingeben">
+                        </div>
+                        <div class="formular-input-box">
+                            <label for="regispassword" class="label">Passwort</label>
+                            <br>
+                            <input type="password" name="passwd" class="formular-input" id="regispassword" placeholder="Ein sicheres Passwort eingeben" required>
+                        </div>
+                        <div class="formular-input-box">
+                            <label for="regispasswordsafe" class="label">Passwort wiederholen</label>
+                            <br>
+                            <input type="password" name="passwdre" class="formular-input" id="regispasswordsafe" placeholder="Ihr sicheres Passwort wiederholen" required>
+                        </div>
+                        <div class="formular-input-box-button">
+                            <div class="button-space">
+                                <button type="submit" class="btn log-reg-button btn-dark" value="Signup" name="action"> 
+                                    Registrieren
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                     <div class="data-security">
                         Mit der Registrierung auf dieser Webseite akzeptieren Sie unsere <a href="impressum.html" style="color:#cc00cc">Datenschutzerklärung</a>, wodurch die angegebenen Daten zu Analysezwecke genutzt und verarbeitet werden dürfen.
                     </div>

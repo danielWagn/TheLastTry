@@ -63,11 +63,6 @@ serviceRouter.post('/reservierung', function(request, response) {
     } else if (helper.isUndefined(request.body.reservierer.id)) {
         errorMsgs.push('reservierer gesetzt, aber id fehlt');
     }
-    if (helper.isUndefined(request.body.zahlungsart)) {
-        errorMsgs.push('zahlungsart fehlt');
-    } else if (helper.isUndefined(request.body.zahlungsart.id)) {
-        errorMsgs.push('zahlungsart gesetzt, aber id fehlt');
-    }
     if (helper.isUndefined(request.body.vorstellung)) {
         errorMsgs.push('vorstellung fehlt');
     } else if (helper.isUndefined(request.body.vorstellung.id)) {
@@ -116,11 +111,6 @@ serviceRouter.put('/reservierung', function(request, response) {
     } else if (helper.isUndefined(request.body.reservierer.id)) {
         errorMsgs.push('reservierer gesetzt, aber id fehlt');
     }
-    if (helper.isUndefined(request.body.zahlungsart)) {
-        errorMsgs.push('zahlungsart fehlt');
-    } else if (helper.isUndefined(request.body.zahlungsart.id)) {
-        errorMsgs.push('zahlungsart gesetzt, aber id fehlt');
-    }
     if (helper.isUndefined(request.body.vorstellung)) {
         errorMsgs.push('vorstellung fehlt');
     } else if (helper.isUndefined(request.body.vorstellung.id)) {
@@ -142,7 +132,7 @@ serviceRouter.put('/reservierung', function(request, response) {
 
     const reservierungDao = new ReservierungDao(request.app.locals.dbConnection);
     try {
-        var obj = reservierungDao.update(request.body.id, request.body.zeitpunkt, request.body.reservierer.id, request.body.zahlungsart.id, request.body.vorstellung.id, request.body.reserviertesitze);
+        var obj = reservierungDao.update(request.body.id, request.body.zeitpunkt, request.body.reservierer.id, request.body.vorstellung.id, request.body.reserviertesitze);
         console.log('Service Reservierung: Record updated, id=' + request.body.id);
         response.status(200).json(obj);
     } catch (ex) {

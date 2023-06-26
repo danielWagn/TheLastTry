@@ -54,17 +54,22 @@ function vorstellungsBox (obj) {
     root_vorstellung.appendChild(vorstellung_date_line);
     root_vorstellung.appendChild(vorstellung_items);
 
+
     for (time of obj.data) {
         let vorstellung_date_time = document.createElement('button');
         vorstellung_date_time.className = "btn btn-outline-light";
         vorstellung_date_time.innerHTML = time.zeitpunkt.substring(11,16);
+        vorstellung_date_time.index = time.id
+        console.log(time.id);
         if (time.kinosaal.bezeichnung == "Grosser Saal") {
             vorstellung_date_time.onclick = function () {
-                window.location.href = 'http://localhost:3000/reservierunggross';
+                const urlStringBig = 'http://localhost:3000/reservierunggross?id=' + this.index;
+                window.location.href = urlStringBig;
             };
         } else {
             vorstellung_date_time.onclick = function () {
-                window.location.href = 'http://localhost:3000/reservierungklein';
+                const urlStringLittle = 'http://localhost:3000/reservierungklein?id=' + this.index;
+                window.location.href = urlStringLittle;
             };
         }
 
@@ -133,7 +138,6 @@ function getVorstellungen(filmId) {
             const vorstellung_obj = JSON.parse(this.responseText);
             let prep_Vorstellungen = prepareVorstellungen(vorstellung_obj);
             for (Veranstaltungstag of prep_Vorstellungen) {
-                console.log(Veranstaltungstag);
                 vorstellungsBox(Veranstaltungstag);
             }
         }

@@ -1,7 +1,6 @@
 const helper = require('../helper.js');
 const ReserviertersitzDao = require('./reserviertersitzDao.js');
 const ReserviererDao = require('./reserviererDao.js');
-const ZahlungsartDao = require('./zahlungsartDao.js');
 
 class ReservierungDao {
 
@@ -16,7 +15,6 @@ class ReservierungDao {
     loadById(id) {
         const reserviertersitzDao = new ReserviertersitzDao(this._conn);
         const reserviererDao = new ReserviererDao(this._conn);
-        const zahlungsartDao = new ZahlungsartDao(this._conn);
 
         var sql = 'SELECT * FROM Reservierung WHERE id=?';
         var statement = this._conn.prepare(sql);
@@ -30,9 +28,6 @@ class ReservierungDao {
         result.reservierer = reserviererDao.loadById(result.reserviererId);
         delete result.reserviererId;
 
-        result.zahlungsart = zahlungsartDao.loadById(result.zahlungsartId);
-        delete result.zahlungsartId;
-
         result.vorstellung = { 'id': result.vorstellungId };
         delete result.vorstellungId;
 
@@ -44,7 +39,6 @@ class ReservierungDao {
     loadAll() {
         const reserviertersitzDao = new ReserviertersitzDao(this._conn);
         const reserviererDao = new ReserviererDao(this._conn);
-        const zahlungsartDao = new ZahlungsartDao(this._conn);
 
         var sql = 'SELECT * FROM Reservierung';
         var statement = this._conn.prepare(sql);
@@ -63,9 +57,6 @@ class ReservierungDao {
             }
             delete result[i].reserviererId;
 
-            result[i].zahlungsart = zahlungsartDao.loadById(result[i].zahlungsartId);
-            delete result[i].zahlungsartId;
-
             result[i].vorstellung = { 'id': result[i].vorstellungId };
             delete result[i].vorstellungId;
 
@@ -78,7 +69,6 @@ class ReservierungDao {
     loadAllByParent(id) {
         const reserviertersitzDao = new ReserviertersitzDao(this._conn);
         const reserviererDao = new ReserviererDao(this._conn);
-        const zahlungsartDao = new ZahlungsartDao(this._conn);
 
         var sql = 'SELECT * FROM Reservierung WHERE vorstellungId=?';
         var statement = this._conn.prepare(sql);
@@ -96,9 +86,6 @@ class ReservierungDao {
                 result[i].reservierer = reserviererDao.loadById(result[i].reserviererId);
             }
             delete result[i].reserviererId;
-
-            result[i].zahlungsart = zahlungsartDao.loadById(result[i].zahlungsartId);
-            delete result[i].zahlungsartId;
 
             result[i].vorstellung = { 'id': result[i].vorstellungId };
             delete result[i].vorstellungId;
@@ -120,15 +107,15 @@ class ReservierungDao {
         return false;
     }
 
-    create(zeitpunkt = null, reserviererId = 1, zahlungsartId = 1, vorstellungId = 1, reserviertesitze = []) {
+    create(zeitpunkt = null, reserviererId = 1, vorstellungId = 1, reserviertesitze = []) {
         const reserviertersitzDao = new ReserviertersitzDao(this._conn);
 
         if (helper.isNull(zeitpunkt)) 
             zeitpunkt = helper.getNow();
 
-        var sql = 'INSERT INTO Reservierung (zeitpunkt,reserviererId,zahlungsartId,vorstellungId) VALUES (?,?,?,?)';
+        var sql = 'INSERT INTO Reservierung (zeitpunkt,reserviererId,vorstellungId) VALUES (?,?,?)';
         var statement = this._conn.prepare(sql);
-        var params = [helper.formatToSQLDateTime(zeitpunkt), reserviererId, zahlungsartId, vorstellungId];
+        var params = [helper.formatToSQLDateTime(zeitpunkt), reserviererId, vorstellungId];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -143,16 +130,16 @@ class ReservierungDao {
         return this.loadById(result.lastInsertRowid);
     }
 
-    update(id, zeitpunkt = null, reserviererId = 1, zahlungsartId = 1, vorstellungId = 1, reserviertesitze = []) {
+    update(id, zeitpunkt = null, reserviererId = 1, vorstellungId = 1, reserviertesitze = []) {
         const reserviertersitzDao = new ReserviertersitzDao(this._conn);
         reserviertersitzDao.deleteByParent(id);
 
         if (helper.isNull(zeitpunkt)) 
             zeitpunkt = helper.getNow();
 
-        var sql = 'UPDATE Reservierung SET zeitpunkt=?,reserviererId=?,zahlungsartId=?,vorstellungId=? WHERE Id=?';
+        var sql = 'UPDATE Reservierung SET zeitpunkt=?,reserviererId=?,vorstellungId=? WHERE Id=?';
         var statement = this._conn.prepare(sql);
-        var params = [helper.formatToSQLDateTime(zeitpunkt), reserviererId, zahlungsartId, vorstellungId, id];
+        var params = [helper.formatToSQLDateTime(zeitpunkt), reserviererId, vorstellungId, id];
         var result = statement.run(params);
 
         if (result.changes != 1) 
