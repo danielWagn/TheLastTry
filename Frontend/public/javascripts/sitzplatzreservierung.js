@@ -1,9 +1,3 @@
-//let btn = document.getElementById("kasse-link-button-reservierung");
-
-//btn.onclick = function () {
-//        window.location.href = 'http://localhost:3000/kasse';
-//    };
-        
 var geld = 0;
 const neueliste = [];
 
