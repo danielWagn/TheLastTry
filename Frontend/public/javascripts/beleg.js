@@ -31,6 +31,7 @@ function info1(obj, rid) {
     belegSaal.innerHTML = obj.kinosaal.bezeichnung;
 
     setBeleg2(obj, rid);
+        
     return;
 }
 
@@ -40,6 +41,32 @@ function info2(vobj, robj){
 
     const belegMail = document.getElementById("beleg-ergebnis-bestellt-email");
     belegMail.innerHTML = robj.reservierer.email;
+
+    const seatList = [];
+
+    for (const reservierung of vobj.reservierungen) {
+        if (reservierung.reservierer.id == robj.reservierer.id) {
+            for (const seat of reservierung.reserviertesitze) {
+                seatList.push(seat.sitzplatz);
+            }
+        }
+    }
+
+    const anzahl = seatList.length;
+    const seatString = seatList.join();
+    console.log(anzahl + " " + seatString);
+
+    const belegAnzahl = document.getElementById("beleg-ergebnis-sitze-anzahl");
+    belegAnzahl.innerHTML = anzahl;
+
+    const belegSitze = document.getElementById("beleg-ergebnis-sitze");
+    belegSitze.innerHTML = seatString;
+
+    const belegPreis = document.getElementById("beleg-ergebnis-preis");
+    const us_preis = parseFloat(anzahl * vobj.film.preis).toFixed(2)  + ' €'
+    const eu_preis = us_preis.replaceAll('.',',');
+    belegPreis.innerHTML = eu_preis;
+
     return;
 }
 
@@ -86,6 +113,54 @@ function setBeleg(obj) {
     xhr.send();
 }
 
+function checkExists(obj) {
+    // Creating Our XMLHttpRequest object
+    let xhr = new XMLHttpRequest();
+
+    // Making our connection 
+    var url = 'http://localhost:8000/api/vorstellung/existiert/' + obj.vid;
+    xhr.open("GET", url, true);
+
+    // function execute after request is successful
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const vorstellung = JSON.parse(this.responseText);
+            if (vorstellung.existiert == true){
+                checkExists2(obj); 
+            }
+            else {   
+                window.location.href = "http://localhost:3000/error"
+            }
+        }
+    }
+    // Sending our request
+    xhr.send();
+}
+
+function checkExists2(obj) {
+    // Creating Our XMLHttpRequest object
+    let xhr = new XMLHttpRequest();
+
+    // Making our connection 
+    var url = 'http://localhost:8000/api/reservierung/existiert/' + obj.id;
+    xhr.open("GET", url, true);
+
+    // function execute after request is successful
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const reservierung = JSON.parse(this.responseText);
+            if (reservierung.existiert == true){
+                setBeleg(obj);
+            }
+            else {   
+                window.location.href = "http://localhost:3000/error"
+            }
+        }
+    }
+    // Sending our request
+    xhr.send();
+}
+
 const idObj = getURLParameter();
-setBeleg(idObj);
+checkExists(idObj);
 

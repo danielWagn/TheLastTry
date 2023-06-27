@@ -23,7 +23,7 @@ function fillFilmInfo(film_obj) {
 
     let filmInfoPrice = document.getElementById("film-detailpage-info-price");
     let preis = parseFloat(film_obj.preis).toFixed(2)  + ' €';
-    decimal = preis.replaceAll('.',',');
+    const decimal = preis.replaceAll('.',',');
     filmInfoPrice.innerHTML = decimal; 
 }
 
@@ -167,5 +167,31 @@ function getFilm(filmId) {
     xhr.send();
 }
 
+function checkExists(id) {
+    // Creating Our XMLHttpRequest object
+    let xhr = new XMLHttpRequest();
+
+    // Making our connection 
+    console.log(id)
+    var url = 'http://localhost:8000/api/film/existiert/' + id;
+    xhr.open("GET", url, true);
+
+    // function execute after request is successful
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const film = JSON.parse(this.responseText);
+            console.log(film);
+            if (film.existiert == true){
+                getFilm(id); 
+            }
+            else {   
+                window.location.href = "http://localhost:3000/error"
+            }
+        }
+    }
+    // Sending our request
+    xhr.send();
+}
+
 let filmId = getURLParameter();
-getFilm(filmId);
+checkExists(filmId);

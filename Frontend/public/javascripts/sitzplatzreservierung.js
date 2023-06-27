@@ -10,13 +10,13 @@ const neueliste = [];
 let el = document.getElementById("ausgesucht");
 let geldel = document.getElementById("preis");
 
-function reserve(seat) {
+function reserve(seat, film_preis) {
     if(neueliste.includes(seat.id)){
         const index = neueliste.indexOf(seat.id)
         neueliste.splice(index, 1);
         seat.style.background = "white";
         el.innerHTML=neueliste;
-        let us_preis = parseFloat(neueliste.length * 10.50).toFixed(2)  + ' €';
+        let us_preis = parseFloat(neueliste.length * film_preis).toFixed(2)  + ' €';
         let eu_preis = us_preis.replaceAll('.',',');
         geldel.innerHTML = "Preis: " + eu_preis;
     }
@@ -24,7 +24,7 @@ function reserve(seat) {
         neueliste.push(seat.id);
         seat.style.background = "rgb(64, 214, 132)";
         el.innerHTML=neueliste;
-        let us_preis = parseFloat(neueliste.length * 10.50).toFixed(2)  + ' €';
+        let us_preis = parseFloat(neueliste.length * film_preis).toFixed(2)  + ' €';
         let eu_preis = us_preis.replaceAll('.',',');
         geldel.innerHTML = "Preis: " + eu_preis;
     }
@@ -74,9 +74,33 @@ function getVorstellung(Id) {
     xhr.send();
 }
 
+function checkExists(id) {
+    // Creating Our XMLHttpRequest object
+    let xhr = new XMLHttpRequest();
+
+    // Making our connection 
+    console.log(id)
+    var url = 'http://localhost:8000/api/vorstellung/existiert/' + id;
+    xhr.open("GET", url, true);
+
+    // function execute after request is successful
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const vorstellung = JSON.parse(this.responseText);
+            if (vorstellung.existiert == true){
+                getVorstellung(id); 
+            }
+            else {   
+                window.location.href = "http://localhost:3000/error"
+            }
+        }
+    }
+    // Sending our request
+    xhr.send();
+}
+
 const vorstellungID = getURLParameter();
-console.log(vorstellungID);
-let vorstellungsObject = getVorstellung(vorstellungID);
+checkExists(vorstellungID);
 
 function setFilmInfo(vorstellung_obj) {
     let infoPicture = document.getElementById("reservation-film-info-picture");
@@ -97,7 +121,8 @@ function setFilmInfo(vorstellung_obj) {
 
     let infoPreis = document.getElementById("reservation-film-info-price");
     const preis = parseFloat(vorstellung_obj.film.preis).toFixed(2)  + ' €'
-    infoPreis.innerHTML = preis;
+    const decimal = preis.replaceAll('.',',');
+    infoPreis.innerHTML = decimal;
 
     let infoButton = document.getElementById("reservation-film-info-button");
     infoButton.filmID = vorstellung_obj.film.id;
@@ -128,7 +153,7 @@ function setSeatsKlein(v_obj, prepSeats) {
         }
         else {
             targetSeat.className = "seat";
-            targetSeat.onclick = function() { reserve(this); }
+            targetSeat.onclick = function() { reserve(this, v_obj.film.preis); }
         }
 
     }
@@ -138,7 +163,6 @@ function setSeatsKlein(v_obj, prepSeats) {
 
 function setSeatsGross(v_obj, prepSeats) {
     
-    console.log(prepSeats);
 
     let seatList = [
         "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", 
@@ -157,7 +181,7 @@ function setSeatsGross(v_obj, prepSeats) {
         }
         else {
             targetSeat.className = "seat";
-            targetSeat.onclick = function() { reserve(this); }
+            targetSeat.onclick = function() { reserve(this, v_obj.film.preis); }
         }
 
     }

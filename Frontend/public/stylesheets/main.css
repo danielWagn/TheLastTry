@@ -612,6 +612,10 @@ body {
     padding-left: 4%;
 }
 
+.beleg-details td {
+    min-width: 200px;
+}
+
 /*------------------------------------------------------------------------------------------------*/
 
 
@@ -833,6 +837,43 @@ body {
 
 .user-data-kasse {
     width: 100%;
+    padding-left: 6%;
+    margin-bottom: 10%;
+    padding-top: 3%;
+}
+
+.kasse-form-user {
+    margin-bottom: 25px;
+    height: 35px;
+}
+
+#kasseVorname {
+    border-radius: 10px;
+}
+
+#kasseNachname {
+    border-radius: 10px;
+}
+
+#kasseEmail {
+    height: 35px;
+    width: 150%;
+    border-radius: 10px;
+}
+
+
+/*------------------------------------------------------------------------------------------------*/
+
+/* Error Page */
+
+.error-main {
+    height: 700px;
+    color: white;
+}
+
+.error-msg {
+    margin-left: 35%;
+    padding-top: 10%;
 }
 
 /*------------------------------------------------------------------------------------------------*/

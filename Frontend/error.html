@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link 
-        rel="stylesheet" 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="./stylesheets/main.css">
-    <title>Programm</title>
+    <title>Film - Details</title>
 </head>
 <body>
     <div class="header">
@@ -27,9 +23,11 @@
             </div>
         </div>
     </div>
-    <div class="programm-main" id="programm-root">
-        
-        
+    <div class="error-main">
+        <div class="error-msg">
+            <h1>Fehler</h1>
+            <div> Der Inhalt auf den Sie zugreifen wollten existiert nicht. </div>
+        </div>
     </div>
     <div class="footer">
         <div class="footer-box row">
@@ -41,12 +39,11 @@
             </div>
             <div class="col-2">
                 <h3><b>Sonstiges</b></h3>
-                <a href="http://localhost:3000/" class="imprint-link">Programm</a>
+                <a href="http://localhost:3000" class="imprint-link">Programm</a>
                 <div class="line"></div>
                 <a href="http://localhost:3000/impressum" class="imprint-link">Impressum</a>
             </div>
         </div>
     </div>
-    <script src="./javascripts/filmProgramm.js"></script>
 </body>
 </html>
