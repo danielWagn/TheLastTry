@@ -47,7 +47,7 @@ serviceRouter.get('/benutzer/existiert/:id', function(request, response) {
     }
 });
 
-serviceRouter.get('/benutzer/eindeutig', function(request, response) {
+serviceRouter.post('/benutzer/eindeutig', function(request, response) {
     console.log('Service Benutzer: Client requested check, if username is unique');
 
     var errorMsgs=[];

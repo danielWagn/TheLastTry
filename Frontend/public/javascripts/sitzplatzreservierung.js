@@ -1,8 +1,8 @@
-let btn = document.getElementById("kasse-link-button-reservierung");
+//let btn = document.getElementById("kasse-link-button-reservierung");
 
-btn.onclick = function () {
-        window.location.href = 'http://localhost:3000/kasse';
-    };
+//btn.onclick = function () {
+//        window.location.href = 'http://localhost:3000/kasse';
+//    };
         
 var geld = 0;
 const neueliste = [];
@@ -39,6 +39,17 @@ function getURLParameter()
     return id
 }
 
+function formButton(){
+    let form = document.getElementById("kasse-form");
+    function submitForm(event) {
+        event.preventDefault();
+    }
+
+    form.addEventListener('submit', submitForm);
+
+    return;
+};
+
 function getVorstellung(Id) {
 
     // Creating Our XMLHttpRequest object
@@ -54,6 +65,9 @@ function getVorstellung(Id) {
             const vorstellung_obj = JSON.parse(this.responseText);
             console.log(vorstellung_obj); 
             setFilmInfo(vorstellung_obj);
+            let preparedSeatList = prepareSeatList(vorstellung_obj)
+            setSeats(vorstellung_obj, preparedSeatList);
+            formButton();
         }
     }
     // Sending our request
@@ -91,27 +105,179 @@ function setFilmInfo(vorstellung_obj) {
         const urlStringLittle = "http://localhost:3000/film?id=" + this.filmID;
         window.location.href = urlStringLittle;
     };
+
+    return;
+};
+
+function setSeatsKlein(v_obj, prepSeats) {
+    
+    let seatList = [
+        "A1", "A2", "A3", "A9", "A10", "A11", 
+        "B1", "B2", "B3", "B4", "B8", "B9", "B10", "B11",
+        "C1", "C2", "C3", "C4", "C5", "C7", "C8", "C9", "C10", "C11",
+        "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11",
+        "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10",
+        "F3", "F4", "F5", "F6", "F7", "F8", "F9"
+    ];
+
+    for (const seat of seatList) {
+        let targetSeat = document.getElementById(seat);
+        
+        if (prepSeats.includes(seat)) {
+            targetSeat.className = "closed-seat";
+        }
+        else {
+            targetSeat.className = "seat";
+            targetSeat.onclick = function() { reserve(this); }
+        }
+
+    }
+    
+    return;
+};
+
+function setSeatsGross(v_obj, prepSeats) {
+    
+    console.log(prepSeats);
+
+    let seatList = [
+        "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", 
+        "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11",
+        "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11",
+        "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11",
+        "E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10", "E11", 
+        "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11"
+    ];
+    
+    for (const seat of seatList) {
+        let targetSeat = document.getElementById(seat);
+        
+        if (prepSeats.includes(seat)) {
+            targetSeat.className = "closed-seat";
+        }
+        else {
+            targetSeat.className = "seat";
+            targetSeat.onclick = function() { reserve(this); }
+        }
+
+    }
+    
+    return;
+};
+
+function prepareSeatList(vorstellung_obj) {
+    let prepSeats = [];
+    
+    for (reservierung of vorstellung_obj.reservierungen) {
+        for (reservierteSitze of reservierung.reserviertesitze) {
+            prepSeats.push(reservierteSitze.sitzplatz)
+        }
+    }
+
+    return prepSeats;
 }
 
-function checkUnique (username) {
+function setSeats(v_obj, prepSeats) {
+    if (v_obj.kinosaal.bezeichnung == "Kleiner Saal") {
+        setSeatsKlein(v_obj, prepSeats);
+    }
+    else {
+        setSeatsGross(v_obj, prepSeats);
+    }
+    
+    return;
+}
 
+function makeReservation(obj, reservierer) {
     // Creating Our XMLHttpRequest object
     let xhr = new XMLHttpRequest();
 
     // Making our connection 
-    var url = 'http://localhost:8000/api/benutzer/eindeutig';
-    xhr.open("GET", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    var url = 'http://localhost:8000/api/reservierung';
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    const sendObj = {
+        zeitpunkt: obj.zeitpunkt,
+        vorstellung: {
+            id: obj.vorstellung.id
+        },
+        reservierer: {
+            id: reservierer
+        },
+        reserviertesitze: []
+    };
+
+    for (const seat of obj.reserviertesitze) {
+        sendObj.reserviertesitze.push({reihe: "0", sitzplatz: seat});
+    }
+
     // function execute after request is successful
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            const unique = JSON.parse(this.responseText);
-            console.log(unique);
+            const reservierung_obj = JSON.parse(this.responseText);
+            console.log(reservierung_obj.id);
         }
-        return
     }
     // Sending our request
-    xhr.send(JSON.stringify({ "benutzername": "daniel@test.de" }));
+    xhr.send(JSON.stringify(sendObj));
 }
 
-checkUnique("daniel@test.de");
+function makeReservationPerson(obj) {
+    console.log(obj);
+    // Creating Our XMLHttpRequest object
+    let xhr = new XMLHttpRequest();
+
+    // Making our connection 
+    var url = 'http://localhost:8000/api/reservierer';
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    const sendObj = {
+        vorname: obj.reservierer.vorname,
+        nachname: obj.reservierer.nachname,
+        email: obj.reservierer.email
+    };
+
+    // function execute after request is successful
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const reservierer_obj = JSON.parse(this.responseText);
+            console.log(reservierer_obj.id);
+            makeReservation(obj, reservierer_obj.id);
+        }
+    }
+    // Sending our request
+    xhr.send(JSON.stringify(sendObj));
+}
+
+function kasse(){
+    const vorstellungID = getURLParameter();
+
+    let date = document.getElementById("reservation-film-info-date").innerHTML;
+    let time = document.getElementById("reservation-film-info-time").innerHTML;
+    let ausgesucht = document.getElementById("ausgesucht").innerHTML;
+
+    let vorname = document.getElementById("kasseVorname").value;
+    let nachname = document.getElementById("kasseNachname").value;
+    let email = document.getElementById("kasseEmail").value;
+
+    const zeitpunkt = date + " " + time.substring(0,5) + ":00";
+    const seatList = ausgesucht.split(",");
+
+    let uebergabe = {
+        zeitpunkt: zeitpunkt,
+        vorstellung: {
+            id: vorstellungID
+        },
+        reservierer: {
+            vorname: vorname,
+            nachname: nachname,
+            email: email
+        },
+        reserviertesitze: seatList
+    };
+
+    reservationID = makeReservationPerson(uebergabe);
+
+    window.location.href = 'http://localhost:3000/beleg' + '?vID=' + vorstellungID + '&ID=' + reservationID ;
+    return;
+};

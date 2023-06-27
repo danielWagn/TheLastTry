@@ -70,7 +70,6 @@ CREATE TABLE Reservierung (
 	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	zeitpunkt NUMERIC NOT NULL,
 	reserviererId INTEGER NOT NULL,
-	zahlungsartId INTEGER NOT NULL,
 	vorstellungId INTEGER NOT NULL,
 	CONSTRAINT fk_Reservierung1 FOREIGN KEY (reserviererId) REFERENCES Reservierer(id),
 	CONSTRAINT fk_Reservierung3 FOREIGN KEY (vorstellungId) REFERENCES Vorstellung(id)
@@ -90,13 +89,6 @@ CREATE TABLE Benutzer (
 	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	benutzername TEXT NOT NULL,
 	passwort TEXT NOT NULL,
-	benutzerrolleId INTEGER NOT NULL,
 	personId INTEGER DEFAULT NULL,
-	CONSTRAINT fk_Benutzer1 FOREIGN KEY (benutzerrolleId) REFERENCES Benutzerrolle(id),
 	CONSTRAINT fk_Benutzer2 FOREIGN KEY (personId) REFERENCES Person(id)
-);
-
-CREATE TABLE Benutzerrolle (
-	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	bezeichnung TEXT NOT NULL
 );

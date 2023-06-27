@@ -84,7 +84,7 @@ serviceRouter.post('/reservierung', function(request, response) {
 
     const reservierungDao = new ReservierungDao(request.app.locals.dbConnection);
     try {
-        var obj = reservierungDao.create(request.body.zeitpunkt, request.body.reservierer.id, request.body.zahlungsart.id, request.body.vorstellung.id, request.body.reserviertesitze);
+        var obj = reservierungDao.create(request.body.zeitpunkt, request.body.reservierer.id, request.body.vorstellung.id, request.body.reserviertesitze);
         console.log('Service Reservierung: Record inserted');
         response.status(200).json(obj);
     } catch (ex) {

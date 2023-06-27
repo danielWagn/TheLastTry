@@ -66,9 +66,6 @@ try {
     serviceRouter = require('./services/benutzer.js');
     app.use(TOPLEVELPATH, serviceRouter);
 
-    serviceRouter = require('./services/benutzerrolle.js');
-    app.use(TOPLEVELPATH, serviceRouter);
-
     serviceRouter = require('./services/filmgenre.js');
     app.use(TOPLEVELPATH, serviceRouter);
 

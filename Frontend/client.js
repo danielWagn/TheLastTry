@@ -5,7 +5,6 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const XMLHttpRequest = require('xhr2');
 
-const helper = require('./helper.js');
 
 const app = express();
 
@@ -29,10 +28,6 @@ app.get('/impressum', (req,res,) => {
     res.sendFile(path.join(__dirname) + "/impressum.html");
 });
 
-//app.get('/account', (req,res,) => {
-//    res.sendFile(path.join(__dirname) + "/account.html");
-//});
-
 app.get('/beleg', (req,res,) => {
     res.sendFile(path.join(__dirname) + "/beleg.html");
 });
@@ -41,29 +36,29 @@ app.get('/kasse', (req,res,) => {
     res.sendFile(path.join(__dirname) + "/kasse.html");
 });
 
-app.get('/logres', (req,res,) => {
-    res.sendFile(path.join(__dirname) + "/login.html");
-});
 
 function checkUnique (username) {
 
-    // Creating Our XMLHttpRequest object
     let xhr = new XMLHttpRequest();
 
-    // Making our connection 
     var url = 'http://localhost:8000/api/benutzer/eindeutig';
-    xhr.open("GET", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    // function execute after request is successful
+    var json_name = { 
+        benutzername: "danieltest.de" 
+    };
+
+    console.log(JSON.stringify(json_name));
+
+    xhr.open("POST", url);
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const unique = JSON.parse(this.responseText);
             console.log(unique);
         }
-        return
-    }
-    // Sending our request
-    xhr.send(JSON.stringify({ "benutzername": username }));
+    };
+    
+    xhr.send(JSON.stringify(json_name));
 }
 
 function registration(body) {

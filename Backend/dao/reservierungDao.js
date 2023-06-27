@@ -57,6 +57,8 @@ class ReservierungDao {
             }
             delete result[i].reserviererId;
 
+            
+
             result[i].vorstellung = { 'id': result[i].vorstellungId };
             delete result[i].vorstellungId;
 
@@ -69,6 +71,7 @@ class ReservierungDao {
     loadAllByParent(id) {
         const reserviertersitzDao = new ReserviertersitzDao(this._conn);
         const reserviererDao = new ReserviererDao(this._conn);
+        
 
         var sql = 'SELECT * FROM Reservierung WHERE vorstellungId=?';
         var statement = this._conn.prepare(sql);
@@ -86,6 +89,8 @@ class ReservierungDao {
                 result[i].reservierer = reserviererDao.loadById(result[i].reserviererId);
             }
             delete result[i].reserviererId;
+
+            
 
             result[i].vorstellung = { 'id': result[i].vorstellungId };
             delete result[i].vorstellungId;

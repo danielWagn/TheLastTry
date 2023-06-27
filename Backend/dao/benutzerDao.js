@@ -1,6 +1,5 @@
 const helper = require('../helper.js');
 const md5 = require('md5');
-const BenutzerrolleDao = require('./benutzerrolleDao.js');
 const PersonDao = require('./personDao.js');
 
 class BenutzerDao {
@@ -14,7 +13,6 @@ class BenutzerDao {
     }
 
     loadById(id) {
-        const benutzerrolleDao = new BenutzerrolleDao(this._conn);
         const personDao = new PersonDao(this._conn);
 
         var sql = 'SELECT * FROM Benutzer WHERE id=?';
@@ -23,9 +21,6 @@ class BenutzerDao {
 
         if (helper.isUndefined(result)) 
             throw new Error('No Record found by id=' + id);
-
-        result.benutzerrolle = benutzerrolleDao.loadById(result.benutzerrolleId);
-        delete result.benutzerrolleId;
 
         if (helper.isNull(result.personId)) {
             result.person = null;
@@ -38,7 +33,6 @@ class BenutzerDao {
     }
 
     loadAll() {
-        const benutzerrolleDao = new BenutzerrolleDao(this._conn);
         const personDao = new PersonDao(this._conn);
 
         var sql = 'SELECT * FROM Benutzer';
@@ -50,8 +44,6 @@ class BenutzerDao {
 
         for (var i = 0; i < result.length; i++) {
 
-            result[i].benutzerrolle = benutzerrolleDao.loadById(result[i].benutzerrolleId);
-            delete result[i].benutzerrolleid;
 
             if (helper.isNull(result[i].personId)) {
                 result[i].person = null;
@@ -87,7 +79,6 @@ class BenutzerDao {
     }
 
     hasaccess(benutzername, passwort) {
-        const benutzerrolleDao = new BenutzerrolleDao(this._conn);
         const personDao = new PersonDao(this._conn);
 
         var sql = 'SELECT ID FROM Benutzer WHERE benutzername=? AND passwort=?';
@@ -101,10 +92,10 @@ class BenutzerDao {
         return this.loadById(result.id);
     }
 
-    create(benutzername = '', passwort = '', benutzerrolleId = 1, personId = null) {
-        var sql = 'INSERT INTO Benutzer (benutzername,passwort,benutzerrolleID,personId) VALUES (?,?,?,?)';
+    create(benutzername = '', passwort = '', personId = null) {
+        var sql = 'INSERT INTO Benutzer (benutzername,passwort,personId) VALUES (?,?,?)';
         var statement = this._conn.prepare(sql);
-        var params = [benutzername, md5(passwort), benutzerrolleId, personId];
+        var params = [benutzername, md5(passwort), personId];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -113,16 +104,16 @@ class BenutzerDao {
         return this.loadById(result.lastInsertRowid);
     }
 
-    update(id, benutzername = '', neuespasswort = null, benutzerrolleId = 1, personId = null) {
+    update(id, benutzername = '', neuespasswort = null, personId = null) {
         
         if (helper.isNull(neuespasswort)) {
-            var sql = 'UPDATE Benutzer SET benutzername=?,benutzerrolleId=?,personId=? WHERE id=?';
+            var sql = 'UPDATE Benutzer SET benutzername=?,personId=? WHERE id=?';
             var statement = this._conn.prepare(sql);
-            var params = [benutzername, benutzerrolleId, personId, id];
+            var params = [benutzername, personId, id];
         } else {
-            var sql = 'UPDATE Benutzer SET benutzername=?,passwort=?,benutzerrolleId=?,personId=? WHERE id=?';
+            var sql = 'UPDATE Benutzer SET benutzername=?,passwort=?,personId=? WHERE id=?';
             var statement = this._conn.prepare(sql);
-            var params = [benutzername, md5(neuespasswort), benutzerrolleId, personId, id];
+            var params = [benutzername, md5(neuespasswort), personId, id];
         }
         var result = statement.run(params);
 
