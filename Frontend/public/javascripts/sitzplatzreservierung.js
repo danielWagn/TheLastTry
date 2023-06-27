@@ -216,6 +216,7 @@ function makeReservation(obj, reservierer) {
         if (this.readyState == 4 && this.status == 200) {
             const reservierung_obj = JSON.parse(this.responseText);
             console.log(reservierung_obj.id);
+            window.location.href = 'http://localhost:3000/beleg' + '?vID=' + obj.vorstellung.id + '&ID=' + reservierung_obj.id;
         }
     }
     // Sending our request
@@ -276,8 +277,10 @@ function kasse(){
         reserviertesitze: seatList
     };
 
-    reservationID = makeReservationPerson(uebergabe);
-
-    window.location.href = 'http://localhost:3000/beleg' + '?vID=' + vorstellungID + '&ID=' + reservationID ;
+    console.log(seatList);
+    if (seatList.length != 0) {
+        reservationID = makeReservationPerson(uebergabe);
+        //window.location.href = 'http://localhost:3000/beleg' + '?vID=' + vorstellungID + '&ID=' + reservationID ;
+    }
     return;
 };

@@ -196,6 +196,21 @@
             </div>
         </div>
         <div class="movie-kasse">
+            <div class="user-data-kasse row">
+                <form id="kasse-form" onSubmit="kasse()">
+                <div class="col-5">
+                    <label for="kasseVorname">Vorname:</label>
+                    <input type="text" class="kasse-form-user" id="kasseVorname" placeholder="" required>
+                </div>
+                <div class="col-5">
+                    <label for="kasseNachname">Nachname:</label>
+                    <input type="text" class="kasse-form-user" id="kasseNachname" placeholder="" required>
+                </div>
+                <div class="col-12">
+                    <label for="kasseEmail">E-Mail:</label>
+                    <input type="email" class="kasse-form-email" id="kasseEmail" placeholder="" required>
+                </div>
+            </div>
             <div class="movie-headline">
                 <h4>Reservierung</h4>
             </div>
@@ -205,11 +220,12 @@
                 <div class="reservation-cost" id="preis">
                 </div>
             </div>
-            <div class="seat-button">
-                <button type="submit" class="btn btn-light" id="kasse-link-button-reservierung" onclick="kasse()">
+            <div class="seat-button" id="kasse-link-button-reservierung">
+                <button type="submit" class="btn btn-light">
                     Zur Kasse
                 </button>
             </div>
+            </form>
         </div>
     </div>
     <div class="footer">

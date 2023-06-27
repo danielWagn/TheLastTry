@@ -28,18 +28,46 @@
         <div class="beleg row">
             <div class="beleg-title col-12"><h3>Beleg</h3></div>
             <div class="col-6 beleg-details">
-                <pre>Film:                  Deadpool</pre>
-                <pre>Datum:                 12.05.2023 13:30</pre>
-                <pre>Bestellt am:           10.05.2023 14:45:23</pre>
-                <pre>Bestellt von:          max@muster.com</pre>
-                <pre>Filmlänge:             109 Minuten</pre>
-                <pre>Saal:                  A</pre>
-                <pre>Anzahl Sitzplätze:     4</pre>
-                <pre>Sitzplätze:            C4, C5, C6, C7</pre>
-                <pre>Preis:                 38,00 €</pre>
+                <table>
+                    <tr>
+                        <td>Film:</td>
+                        <td id="beleg-ergebnis-titel"></td>
+                    </tr>
+                    <tr>
+                        <td>Datum:</td>
+                        <td id="beleg-ergebnis-datum"></td>
+                    </tr>
+                    <tr>
+                        <td>Bestellt von:</td>
+                        <td id="beleg-ergebnis-bestellt-name"></td>
+                    </tr>
+                    <tr>
+                        <td>E-mail:</td>
+                        <td id="beleg-ergebnis-bestellt-email"></td>
+                    </tr>
+                    <tr>
+                        <td>Filmlänge:</td>
+                        <td id="beleg-ergebnis-laenge"></td>
+                    </tr>
+                    <tr>
+                        <td>Saal:</td>
+                        <td id="beleg-ergebnis-saal"></td>
+                    </tr>
+                    <tr>
+                        <td>Anzahl Sitzplätze:</td>
+                        <td id="beleg-ergebnis-sitze-anzahl">4</td>
+                    </tr>
+                    <tr>
+                        <td>Sitzplätze:</td>
+                        <td id="beleg-ergebnis-sitze">C4, C5, C6, C7</td>
+                    </tr>
+                    <tr>
+                        <td>Preis:</td>
+                        <td id="beleg-ergebnis-preis">138,00 €</td>
+                    </tr>
+                </table>
             </div>
-            <div class="col-6 beleg-picture">
-                <img src="./images/deadpool.jpeg" alt="Deadpool">
+            <div class="col-6 beleg-picture" id="beleg-info-bild">
             </div>
             <div class="col-12 thanks">Wir wünschen einen guten Aufenthalt und viel Spaß im "Kino - Last Try"</div>
         </div>
@@ -60,5 +88,6 @@
             </div>
         </div>
     </div>
+    <script src="./javascripts/beleg.js"></script>
 </body>
 </html>
