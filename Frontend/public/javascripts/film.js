@@ -25,6 +25,8 @@ function fillFilmInfo(film_obj) {
     let preis = parseFloat(film_obj.preis).toFixed(2)  + ' €';
     const decimal = preis.replaceAll('.',',');
     filmInfoPrice.innerHTML = decimal; 
+
+    return;
 }
 
 function vorstellungsBox (obj) {
@@ -76,7 +78,7 @@ function vorstellungsBox (obj) {
         let root_vorstellung_items = document.querySelector('#vorstellung-detail-box-items' + anhang);
         root_vorstellung_items.appendChild(vorstellung_date_time);
     }
-
+    return;
 }
 
 function getURLParameter()
@@ -85,7 +87,7 @@ function getURLParameter()
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id')
 
-    return id
+    return id;
 }
 
 function prepareVorstellungen(obj) {
@@ -185,7 +187,7 @@ function checkExists(id) {
                 getFilm(id); 
             }
             else {   
-                window.location.href = "http://localhost:3000/error"
+                window.location.href = "http://localhost:3000/error";
             }
         }
     }

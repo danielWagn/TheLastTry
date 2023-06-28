@@ -22,6 +22,8 @@ function reserve(seat, film_preis) {
         let eu_preis = us_preis.replaceAll('.',',');
         geldel.innerHTML = "Preis: " + eu_preis;
     }
+
+    return;
 }
 
 function getURLParameter()
@@ -30,7 +32,7 @@ function getURLParameter()
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id')
 
-    return id
+    return id;
 }
 
 function formButton(){
@@ -296,9 +298,11 @@ function kasse(){
     };
 
     console.log(seatList);
-    if (seatList.length != 0) {
+    if (!(seatList[0].replace(/^\s+|\s+$/g, '') == '')) {
         reservationID = makeReservationPerson(uebergabe);
-        //window.location.href = 'http://localhost:3000/beleg' + '?vID=' + vorstellungID + '&ID=' + reservationID ;
+    }
+    else {
+        console.log("ist leer");
     }
     return;
 };

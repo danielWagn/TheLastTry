@@ -58,6 +58,8 @@ function movieBox (obj) {
     root_info.appendChild(programm_info_p2);
     root_info.appendChild(programm_info_p3);
     root_info.appendChild(programm_info_button);
+
+    return;
 }
 
 
